@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Gmina {{gm.name}}</h2>
+<div class="container">
+{% if okr_list %}
+    <table class="table table-striped">
+    	<tr>
+    		<th>Nazwa okręgu</th>
+    		<th>Ilość kart</th>
+    		<th>Liczba wyborców</th>
+    		<th>Edycja</th>
+    	</tr>
+    {% for okr in okr_list %}
+        <tr>
+        	<td>{{ okr.name }}</td>
+        	<td>{{ okr.karty }}</td>
+        	<td>{{ okr.wyborcy }}</td>
+        	<td><a href="{% url 'okreg' okr.id %}">edytuj</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>Brak okręgów.</p>
+{% endif %}
+</div>
+{% endblock %}
+

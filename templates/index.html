@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Województwa</h1>
+<div class="container">
+{% if woj_list %}
+        {% for woj in woj_list %}
+        <ul>
+                <li><a href="{% url 'woj' woj.id %}">{{ woj.name }}</a></li>
+        </ul>
+    {% endfor %}
+{% else %}
+    <p>Brak danych.</p>
+{% endif %}
+</div>
+{% endblock %}
+

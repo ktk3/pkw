@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}PKW{% endblock%}</title>
+    {% load staticfiles %}
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    {% if error %}
+    <script>
+    	alert('{{ error }}');
+	</script>
+	{% endif %}
+
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">PKW</a>
+    </div>
+    <ul class="nav navbar-nav">
+    	{% if woj %}
+			<li><a href="{% url 'woj' woj.id %}">{{ woj.name }}</a></li>
+		{% endif %}
+    	{% if powiat %}
+			<li><a href="{% url 'powiat' powiat.id %}">{{ powiat.name }}</a></li>
+		{% endif %}
+		{% if gm %}
+			<li><a href="{% url 'gmina' gm.id %}">{{ gm.name }}</a></li>
+		{% endif %}
+    </ul>
+  </div>
+</nav>
+{% block content %}
+{% endblock %}
+<hr>
+</body>
+</html>

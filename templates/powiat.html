@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Powiat {{powiat.name}}</h2>
+<div class="container">
+{% if gm_list %}
+        <ul>        
+        {% for gm in gm_list %}
+            <li><a href="{% url 'gmina' gm.id %}">{{ gm.name }}</a></li>
+        {% endfor %}
+        </ul>
+{% else %}
+    <p>Brak gmin.</p>
+{% endif %}
+</div>
+{% endblock %}
+
