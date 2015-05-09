@@ -23,7 +23,7 @@ def parse_page(url):
     return tab
 
 woj = parse_page(wyb_url)
-woj = [woj[0]]
+#woj = [woj[0]]
 
 for w in woj:
     wm = Wojewodztwo(name=w[0])
