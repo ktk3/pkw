@@ -48,6 +48,14 @@ def error(request, gm_id):
     context = {'gm': gm, 'okr_list': okr_list, 'powiat': powiat,'woj': woj}
     return render(request, 'error.html', context)
 
+def input_error(request, gm_id):
+    gm = get_object_or_404(Gmina, pk=gm_id)
+    okr_list = Okreg.objects.all().filter(gmina=gm)
+    powiat = gm.powiat
+    woj = powiat.woj
+    context = {'gm': gm, 'okr_list': okr_list, 'powiat': powiat,'woj': woj}
+    return render(request, 'input_error.html', context)
+
 def zapisz(request, okr_id):
     okr = get_object_or_404(Okreg, pk=okr_id)
     try:
@@ -56,6 +64,8 @@ def zapisz(request, okr_id):
         d = datetime.strptime(request.POST['d'], "%Y-%m-%d").date()
         t = datetime.strptime(request.POST['t'], "%H:%M:%S").time()
         dd = datetime.combine(d, t)
+        if (int(okr.karty) < 0) or (int(okr.wyborcy) < 0):
+            return input_error(request, okr.gmina.id)
         okr.resave(dd)
     except(ValidationError):
         return error(request, okr.gmina.id)
