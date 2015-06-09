@@ -4,6 +4,9 @@ from komisje.models import *
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from datetime import datetime, date, time
+from django.views.decorators.http import require_POST
+import json
+
 
 def home(request):
     woj_list = Wojewodztwo.objects.all().order_by('name')
@@ -70,3 +73,27 @@ def zapisz(request, okr_id):
     except(ValidationError):
         return error(request, okr.gmina.id)
     return gmina(request, okr.gmina.id)
+
+@require_POST
+def ajax_update(request):
+    okr_id = int(request.POST['okr_id'])
+    okr = get_object_or_404(Okreg, pk=okr_id)
+    czas = str(datetime.now())
+    data = {'wyborcy':okr.wyborcy, 'karty' :okr.karty, 'czas' : czas}
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+@require_POST
+def ajax_save(request):
+    okr_id = int(request.POST['okr_id'])
+    okr = get_object_or_404(Okreg, pk=okr_id)
+    data = {}
+    try:
+        okr.karty = request.POST['karty']
+        okr.wyborcy = request.POST['wyborcy']
+        czas = datetime.strptime(request.POST['czas'], '%Y-%m-%d %H:%M:%S.%f')
+        okr.resave(czas)
+        data = {'wyborcy':okr.wyborcy, 'karty' :okr.karty}
+    except ValidationError as ve:
+        okr = get_object_or_404(Okreg, pk=okr_id)
+        data = {'wyborcy':okr.wyborcy, 'karty' :okr.karty, 'error': ve.message}
+    return HttpResponse(json.dumps(data), content_type="application/json")

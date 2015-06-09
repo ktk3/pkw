@@ -54,8 +54,8 @@ class Command(BaseCommand):
         woj = parse_page(wyb_url)
 
         for w in woj:
-            if w[0] != "mazowieckie":
-                continue
+            #if w[0] != "mazowieckie":
+            #    continue
             wm = Wojewodztwo(name=w[0])
             wm.save()
             powi = parse_page(w[1])

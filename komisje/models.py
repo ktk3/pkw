@@ -33,6 +33,10 @@ class Okreg(models.Model):
         return u"{}".format(self.name)    
 
     def resave (self, dd, *args, **kwargs):
+        if (int(self.karty) < 0) or (int(self.wyborcy) < 0):
+            raise ValidationError('Niepoprawne dane. Sprobuj ponownie.')
+        print "args ", args
+        print "kwargs ", kwargs
         if self.modified > dd:
             raise ValidationError('Dane zmienily sie od odczytu. Sprobuj ponownie.')
         super(Okreg, self).save(*args, **kwargs)

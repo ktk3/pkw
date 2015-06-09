@@ -11,5 +11,8 @@ urlpatterns = patterns('',
     url(r'^g_(?P<gm_id>\d+)/$', 'komisje.views.gmina', name='gmina'),
     url(r'^o_(?P<okr_id>\d+)/$', 'komisje.views.okreg', name='okreg'),
     url(r'^zapisz_(?P<okr_id>\d+)$', 'komisje.views.zapisz', name='zapisz'),
+    # ajax
+    url(r'^ajax/update$', 'komisje.views.ajax_update', name='ajax_update'),
+    url(r'^ajax/save$', 'komisje.views.ajax_save', name='ajax_save'),
     url(r'^admin/', include(admin.site.urls)),
 )
