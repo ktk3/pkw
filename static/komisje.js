@@ -78,14 +78,5 @@ $(document).ready(function() {
         
     });
 
-    $('#bid').click(function() {
-        var price = $('#price').val();
-        $.post('/ajax/bid/', {'price': price, 'csrfmiddlewaretoken': getCookie('csrftoken')}, function(data) {
-            $('#current-price').text(data);
-            if (parseInt(price) < parseInt(data)) {
-                alert('Podbita cena mniejsza niż obecna.');
-            }
-        });
-    });
 });
 

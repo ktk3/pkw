@@ -9,7 +9,6 @@ urlpatterns = patterns('',
     url(r'^w_(?P<woj_id>\d+)/$', 'komisje.views.woj', name='woj'),
     url(r'^p_(?P<pow_id>\d+)/$', 'komisje.views.powiat', name='powiat'),
     url(r'^g_(?P<gm_id>\d+)/$', 'komisje.views.gmina', name='gmina'),
-    url(r'^o_(?P<okr_id>\d+)/$', 'komisje.views.okreg', name='okreg'),
     url(r'^zapisz_(?P<okr_id>\d+)$', 'komisje.views.zapisz', name='zapisz'),
     # ajax
     url(r'^ajax/update$', 'komisje.views.ajax_update', name='ajax_update'),

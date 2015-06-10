@@ -33,32 +33,6 @@ def gmina(request, gm_id):
     context = {'gm': gm, 'okr_list': okr_list, 'powiat': powiat,'woj': woj}
     return render(request, 'gmina.html', context)
     
-def okreg(request, okr_id):
-    d = date.today()
-    t = datetime.now().time()
-    okr = get_object_or_404(Okreg, pk=okr_id)
-    gm = okr.gmina
-    powiat = gm.powiat
-    woj = powiat.woj
-    context = {'gm': gm, 'okr': okr, 'powiat': powiat,'woj': woj, 't':t, 'd':str(d)}
-    return render(request, 'okreg.html', context)
-
-def error(request, gm_id):
-    gm = get_object_or_404(Gmina, pk=gm_id)
-    okr_list = Okreg.objects.all().filter(gmina=gm)
-    powiat = gm.powiat
-    woj = powiat.woj
-    context = {'gm': gm, 'okr_list': okr_list, 'powiat': powiat,'woj': woj}
-    return render(request, 'error.html', context)
-
-def input_error(request, gm_id):
-    gm = get_object_or_404(Gmina, pk=gm_id)
-    okr_list = Okreg.objects.all().filter(gmina=gm)
-    powiat = gm.powiat
-    woj = powiat.woj
-    context = {'gm': gm, 'okr_list': okr_list, 'powiat': powiat,'woj': woj}
-    return render(request, 'input_error.html', context)
-
 def zapisz(request, okr_id):
     okr = get_object_or_404(Okreg, pk=okr_id)
     try:
