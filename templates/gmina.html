@@ -12,11 +12,11 @@
     	</tr>
     {% for okr in okr_list %}
         <tr id="{{okr.id}}">
+            {% csrf_token %}
         	<td>{{ okr.name }}<input type="hidden" id="{{okr.id}}-czas"></td>
-        	<td><span class="karty-view">{{ okr.karty }}</span><input class="karty-edit" type="number"></td>
-        	<td><span class="wyborcy-view">{{ okr.wyborcy }}</span><input class="wyborcy-edit" type="number"></td>
+        	<td><span class="karty-view">{{ okr.karty }}</span><input class="karty-edit" type="number" value="{{ okr.karty }}"></td>
+        	<td><span class="wyborcy-view">{{ okr.wyborcy }}</span><input class="wyborcy-edit" type="number" value="{{ okr.wyborcy }}"></td>
         	<td>
-                <a href="{% url 'okreg' okr.id %}">edytuj</a>
                 <button class="ajax-edit btn btn-xs btn-primary">edit</button>
                 <button class="ajax-save btn btn-xs btn-primary">save</button>
                 <button class="ajax-cancel btn btn-xs btn-default">cancel</button>
